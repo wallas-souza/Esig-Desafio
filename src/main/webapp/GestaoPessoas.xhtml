@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta charset="UTF-8" />
+	<title>Gestão de Pessoas</title>
+
+	<h:outputStylesheet library="esig" name="estilo.css" />
+
+	<f:metadata>
+		<f:viewAction action="#{gestaoPessoasBean.todasPessoas}" />
+	</f:metadata>
+
+</h:head>
+
+<h:body>
+
+	<h2>Listagem de Salários</h2>
+
+
+	<div id="conteudo">
+		<h:form id="table">
+			<p:messages autoUpdate="true" />
+			<p:dataTable value="#{gestaoPessoasBean.listPessoas}" var="pessoa"
+				paginator="true" rows="10" paginatorPosition="bottom">
+				<p:column headerText="Nome">
+					<h:outputText value="#{pessoa.nome}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Cidade">
+					<h:outputText value="#{pessoa.cidade}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Email" style="width:300px">
+					<h:outputText value="#{pessoa.email}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Cep">
+					<h:outputText value="#{pessoa.cep}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Enderco">
+					<h:outputText value="#{pessoa.enderco}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Pais">
+					<h:outputText value="#{pessoa.pais}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Usuario">
+					<h:outputText value="#{pessoa.usuario}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{pessoa.telefone}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Data Nascimento">
+					<h:outputText value="#{pessoa.dataNascimento}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Cargo">
+					<h:outputText value="#{pessoa.cargoId.nome}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Salario">
+					<h:outputText value="#{pessoa.cargoId.salario}"></h:outputText>
+				</p:column>
+
+				<p:column styleClass="table-head" headerText="Ações"
+					exportable="false">
+					<p:commandButton icon="pi pi-file-edit"
+						actionListener="#{gestaoPessoasBean}"
+						styleClass="edit-button rounded-button ui-button-warning ui-button-outlined"
+						process="@this">
+						<f:setPropertyActionListener value="#{pessoa}"
+							target="#{gestaoPessoasBean}" />
+					</p:commandButton>
+					<p:commandButton
+						class="ui-button-danger rounded-button ui-button-outlined"
+						icon="pi pi-times-circle" process="@this">
+						<f:setPropertyActionListener value="#{pessoa}"
+							target="#{gestaoPessoasBean}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+		<h:form id="dialogs">
+			<p:dialog id="createTaskDialog" modal="true" resizable="false"
+				closeOnEscape="true" draggable="false" header="Nova Pessoa"
+				widgetVar="pessoaDialogWidgetVar">
+				<p:commandButton value="teste!" />
+			</p:dialog>
+			
+			
+			<div>
+				<p:commandButton class="ui-button-secondary" value="Adicionar" icon="ui-icon-check"
+					oncomplete="PF('pessoaDialogWidgetVar').show()" />
+			</div>
+		</h:form>
+	</div>
+	<footer> Desafio ESIG </footer>
+</h:body>
+</html>
