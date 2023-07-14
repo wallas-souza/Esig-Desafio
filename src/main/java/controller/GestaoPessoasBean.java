@@ -9,8 +9,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.mysql.cj.mysqlx.protobuf.MysqlxDatatypes.Array;
-
 import model.Cargo;
 import model.Pessoa;
 import model.PessoaSalario;
@@ -59,12 +57,16 @@ public class GestaoPessoasBean implements Serializable{
 	
 	public void prepararEditarPessoa() {
 		pessoaSelecionada = new Pessoa();
+		cargoConverter = new CargoConverter(Arrays.asList(pessoaSelecionada.getCargoId()));
 	}
 	
 	public void salvar() {
 		pessoaService.salvar(pessoa);
-		message.info("Pessoa cadastrada com sucesso!");
 		todasPessoas();
+	}
+	
+	public void atualizar() {
+		pessoaService.atualizar(pessoaSelecionada);
 	}
 	
 	public void todasPessoas() {

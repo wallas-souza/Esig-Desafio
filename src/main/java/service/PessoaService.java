@@ -33,6 +33,12 @@ public class PessoaService implements Serializable {
 	}
 	
 	@Transacional
+	public void atualizar(Pessoa pessoaSelecionada) {
+		System.out.println("ELE ENTROU NO SERVIÇO DE ATUALIZAR");
+		pessoas.guardar(pessoaSelecionada);
+	}
+	
+	@Transacional
 	public void excluir(Pessoa pessoa) {
 		pessoas.remover(pessoa);
 	}

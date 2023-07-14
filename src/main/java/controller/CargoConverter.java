@@ -21,7 +21,7 @@ public class CargoConverter implements Converter {
 		if(value == null) {
 			return null;
 		}
-		Long id = Long.valueOf(value);
+		Long id = Long.valueOf(value); 
 		
 		for (Cargo cargo: listCargos ) {
 			if(id.equals(cargo.getId())) {

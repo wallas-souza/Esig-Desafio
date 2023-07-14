@@ -77,12 +77,12 @@
 				<p:column styleClass="table-head" headerText="Ações"
 					exportable="false">
 					<p:commandButton title="Editar" icon="pi pi-file-edit"
-						update=":dialogs:pessoaDialog"
+						update=":dialogs:editarDialog"
 						actionListener="#{gestaoPessoasBean.prepararEditarPessoa}"
-						oncomplete="PF('pessoaDialogWidgetVar').show()"
+						oncomplete="PF('EditarDialogWidgetVar').show()"
 						styleClass="edit-button rounded-button ui-button-warning"
 						process="@this">
-						<p:resetInput target=":dialogs:pessoaDialog" />
+						<p:resetInput target=":dialogs:editarDialog" />
 						<f:setPropertyActionListener value="#{pessoa}"
 							target="#{gestaoPessoasBean.pessoaSelecionada}" />
 					</p:commandButton>
@@ -156,7 +156,65 @@
 						process="pessoaDialog" />
 				</h:panelGrid>
 			</p:dialog>
-			
+			<p:dialog id="editarDialog" modal="true" resizable="false"
+				closeOnEscape="true" draggable="false" header="Editar Pessoa"
+				widgetVar="EditarDialogWidgetVar">
+				<p:defaultCommand target="saveCommandButton" scope="editarDialog" />
+				<h:panelGrid id="editarPanel" columns="4"
+					rendered="#{gestaoPessoasBean.pessoaSelecionada ne null}">
+					<p:outputLabel value="Nome: " for="nomeEditar" />
+					<p:inputText id="nomeEditar" size="20" maxlength="40"
+						value="#{gestaoPessoasBean.pessoaSelecionada.nome}" />
+
+					<p:outputLabel value="Usuário: " for="usuarioEditar" />
+					<p:inputText id="usuarioEditar" size="20" maxlength="50"
+						value="#{gestaoPessoasBean.pessoaSelecionada.usuario}" />
+
+					<p:outputLabel value="Email: " for="emailEditar" />
+					<p:inputText id="emailEditar" size="20" maxlength="60"
+						value="#{gestaoPessoasBean.pessoaSelecionada.email}" />
+
+					<p:outputLabel value="Telefone: " for="telefoneEditar" />
+					<p:inputText id="telefoneEditar" size="20"
+						maxlength="14" value="#{gestaoPessoasBean.pessoaSelecionada.telefone}" />
+
+					<p:outputLabel value="Cep: " for="cepEditar" />
+					<p:inputMask id="cepEditar" mask="99999-999" size="20" maxlength="10"
+						value="#{gestaoPessoasBean.pessoaSelecionada.cep}" />
+
+					<p:outputLabel value="Cidade: " for="cidadeEditar" />
+					<p:inputText id="cidadeEditar" size="20" maxlength="30"
+						value="#{gestaoPessoasBean.pessoaSelecionada.cidade}" />
+
+					<p:outputLabel value="País: " for="paisEditar" />
+					<p:inputText id="paisEditar" size="20" maxlength="15"
+						value="#{gestaoPessoasBean.pessoaSelecionada.pais}" />
+
+					<p:outputLabel value="Data Nascimento: " for="dataNascimentoEditar" />
+					<p:inputText id="dataNascimentoEditar" size="20"
+						maxlength="10" value="#{gestaoPessoasBean.pessoaSelecionada.dataNascimento}" />
+
+					<p:outputLabel value="Cargo: " for="cargoEditar" />
+					<p:autoComplete id="cargoEditar" size="20"
+						value="#{gestaoPessoasBean.pessoaSelecionada.cargoId}"
+						completeMethod="#{gestaoPessoasBean.completarCargo}"
+						converter="#{gestaoPessoasBean.cargoConverter}" var="cargo"
+						itemLabel="#{cargo.nome}" itemValue="#{cargo}" />
+					<h:outputLabel />
+				</h:panelGrid>
+				<h:panelGrid id="editarPanel2" columns="2"
+					rendered="#{gestaoPessoasBean.pessoaSelecionada ne null}">
+					<p:outputLabel value="Endereço: " for="endercoEditar" />
+					<p:inputText id="endercoEditar" size="62" maxlength="100"
+						value="#{gestaoPessoasBean.pessoaSelecionada.enderco}" />
+					<p:commandButton id="saveEditarCommandButton" value="Salvar"
+						actionListener="#{gestaoPessoasBean.atualizar}"
+						update=":table:pessoaDataTable editarPanel editarPanel2"
+						oncomplete="PF('EditarDialogWidgetVar').hide()"
+						process="editarDialog" />
+				</h:panelGrid>
+			</p:dialog>
+
 			<div>
 				<p:commandButton class="ui-button-secondary" value="Adicionar"
 					styleClass="ui-button-info" icon="pi pi-plus-circle"
