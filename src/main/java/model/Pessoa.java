@@ -5,12 +5,12 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "pessoa")
@@ -19,7 +19,6 @@ public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "nome", nullable = true, length = 40)
@@ -28,10 +27,11 @@ public class Pessoa implements Serializable {
 	@Column(name = "cidade", nullable = true, length = 30)
 	private String cidade;
 	
+	@Email
 	@Column(name = "email", nullable = true, length = 60)
 	private String email;
 	
-	@Column(name = "cep", nullable = true, length = 12)
+	@Column(name = "cep", nullable = true, length = 10)
 	private String cep;
 	
 	@Column(name = "enderco", nullable = true, length = 100)
@@ -43,7 +43,7 @@ public class Pessoa implements Serializable {
 	@Column(name = "usuario", nullable = true, length = 50)
 	private String usuario;
 	
-	@Column(name = "telefone", nullable = true, length = 18)
+	@Column(name = "telefone", nullable = true, length = 14)
 	private String telefone;
 	
 	@Column(name = "data_Nascimento")

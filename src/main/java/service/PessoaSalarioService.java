@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import model.Pessoa;
 import model.PessoaSalario;
 import repository.PessoaSalarios;
+import util.Transacional;
 
 public class PessoaSalarioService implements Serializable {
 
@@ -17,5 +19,10 @@ public class PessoaSalarioService implements Serializable {
 	
 	public List<PessoaSalario> getAll() {
 		return pessoaSalarios.findAll();
+	}
+	
+	@Transacional
+	public void salvar(PessoaSalario pessoaSalario) {
+		pessoaSalarios.guardar(pessoaSalario);
 	}
 }

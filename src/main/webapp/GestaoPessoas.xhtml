@@ -24,8 +24,12 @@
 	<div id="conteudo">
 		<h:form id="table">
 			<p:messages autoUpdate="true" />
-			<p:dataTable value="#{gestaoPessoasBean.listPessoas}" var="pessoa"
-				paginator="true" rows="10" paginatorPosition="bottom">
+			<p:dataTable id="pessoaDataTable"
+				value="#{gestaoPessoasBean.listPessoas}" var="pessoa"
+				paginator="true" rows="10" paginatorPosition="bottom"
+				selectionMode="single" selection="#{gestaoPessoasBean.pessoa}"
+				rowKey="#{pessoa.id}">
+				<p:ajax event="rowSelect" />
 				<p:column headerText="Nome">
 					<h:outputText value="#{pessoa.nome}"></h:outputText>
 				</p:column>
@@ -72,34 +76,95 @@
 
 				<p:column styleClass="table-head" headerText="Ações"
 					exportable="false">
-					<p:commandButton icon="pi pi-file-edit"
-						actionListener="#{gestaoPessoasBean}"
-						styleClass="edit-button rounded-button ui-button-warning ui-button-outlined"
+					<p:commandButton title="Editar" icon="pi pi-file-edit"
+						update=":dialogs:pessoaDialog"
+						actionListener="#{gestaoPessoasBean.prepararEditarPessoa}"
+						oncomplete="PF('pessoaDialogWidgetVar').show()"
+						styleClass="edit-button rounded-button ui-button-warning"
 						process="@this">
+						<p:resetInput target=":dialogs:pessoaDialog" />
 						<f:setPropertyActionListener value="#{pessoa}"
-							target="#{gestaoPessoasBean}" />
+							target="#{gestaoPessoasBean.pessoaSelecionada}" />
 					</p:commandButton>
-					<p:commandButton
-						class="ui-button-danger rounded-button ui-button-outlined"
-						icon="pi pi-times-circle" process="@this">
+					<p:commandButton title="Excluir"
+						class="ui-button-danger rounded-button ui-button-danger"
+						icon="pi pi-trash" process="@this">
 						<f:setPropertyActionListener value="#{pessoa}"
-							target="#{gestaoPessoasBean}" />
+							target="#{gestaoPessoasBean.pessoaSelecionada}" />
 					</p:commandButton>
 				</p:column>
 
 			</p:dataTable>
 		</h:form>
 		<h:form id="dialogs">
-			<p:dialog id="createTaskDialog" modal="true" resizable="false"
+			<p:spacer height="20px" />
+			<p:dialog id="pessoaDialog" modal="true" resizable="false"
 				closeOnEscape="true" draggable="false" header="Nova Pessoa"
 				widgetVar="pessoaDialogWidgetVar">
-				<p:commandButton value="teste!" />
+				<p:defaultCommand target="saveCommandButton" scope="pessoaDialog" />
+				<h:panelGrid id="pessoaPanel" columns="4"
+					rendered="#{gestaoPessoasBean.pessoa ne null}">
+					<p:outputLabel value="Nome: " for="nome" />
+					<p:inputText id="nome" size="20" maxlength="40"
+						value="#{gestaoPessoasBean.pessoa.nome}" />
+
+					<p:outputLabel value="Usuário: " for="usuario" />
+					<p:inputText id="usuario" size="20" maxlength="50"
+						value="#{gestaoPessoasBean.pessoa.usuario}" />
+
+					<p:outputLabel value="Email: " for="email" />
+					<p:inputText id="email" size="20" maxlength="60"
+						value="#{gestaoPessoasBean.pessoa.email}" />
+
+					<p:outputLabel value="Telefone: " for="telefone" />
+					<p:inputMask id="telefone" mask="(99)99999-9999" size="20"
+						maxlength="14" value="#{gestaoPessoasBean.pessoa.telefone}" />
+
+					<p:outputLabel value="Cep: " for="cep" />
+					<p:inputMask id="cep" mask="99999-999" size="20" maxlength="10"
+						value="#{gestaoPessoasBean.pessoa.cep}" />
+
+					<p:outputLabel value="Cidade: " for="cidade" />
+					<p:inputText id="cidade" size="20" maxlength="30"
+						value="#{gestaoPessoasBean.pessoa.cidade}" />
+
+					<p:outputLabel value="País: " for="pais" />
+					<p:inputText id="pais" size="20" maxlength="15"
+						value="#{gestaoPessoasBean.pessoa.pais}" />
+
+					<p:outputLabel value="Data Nascimento: " for="dataNascimento" />
+					<p:inputMask id="dataNascimento" mask="99/99/9999" size="20"
+						maxlength="10" value="#{gestaoPessoasBean.pessoa.dataNascimento}" />
+
+					<p:outputLabel value="Cargo: " for="cargo" />
+					<p:autoComplete id="cargo" size="20"
+						value="#{gestaoPessoasBean.pessoa.cargoId}"
+						completeMethod="#{gestaoPessoasBean.completarCargo}"
+						converter="#{gestaoPessoasBean.cargoConverter}" var="cargo"
+						itemLabel="#{cargo.nome}" itemValue="#{cargo}" />
+					<h:outputLabel />
+				</h:panelGrid>
+				<h:panelGrid id="pessoaPanel2" columns="2"
+					rendered="#{gestaoPessoasBean.pessoa ne null}">
+					<p:outputLabel value="Endereço: " for="enderco" />
+					<p:inputText id="enderco" size="62" maxlength="100"
+						value="#{gestaoPessoasBean.pessoa.enderco}" />
+					<p:commandButton id="saveCommandButton" value="Salvar"
+						actionListener="#{gestaoPessoasBean.salvar}"
+						update=":table:pessoaDataTable pessoaPanel pessoaPanel2"
+						oncomplete="PF('pessoaDialogWidgetVar').hide()"
+						process="pessoaDialog" />
+				</h:panelGrid>
 			</p:dialog>
 			
-			
 			<div>
-				<p:commandButton class="ui-button-secondary" value="Adicionar" icon="ui-icon-check"
-					oncomplete="PF('pessoaDialogWidgetVar').show()" />
+				<p:commandButton class="ui-button-secondary" value="Adicionar"
+					styleClass="ui-button-info" icon="pi pi-plus-circle"
+					actionListener="#{gestaoPessoasBean.prepararNovaPessoa}"
+					oncomplete="PF('pessoaDialogWidgetVar').show()"
+					update="pessoaDialog" process="@this">
+					<p:resetInput target="pessoaDialog" />
+				</p:commandButton>
 			</div>
 		</h:form>
 	</div>

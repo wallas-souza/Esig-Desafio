@@ -21,7 +21,14 @@ public class PessoaService implements Serializable {
 	}
 	
 	@Transacional
+	public Long quantidade() {
+		return pessoas.contar();
+	}
+	
+	@Transacional
 	public void salvar(Pessoa pessoa) {
+		Long id = quantidade();
+		pessoa.setId(id);
 		pessoas.guardar(pessoa);
 	}
 	
