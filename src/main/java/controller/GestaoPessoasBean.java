@@ -67,6 +67,12 @@ public class GestaoPessoasBean implements Serializable{
 	
 	public void atualizar() {
 		pessoaService.atualizar(pessoaSelecionada);
+		todasPessoas();
+	}
+	
+	public void delete() {
+		pessoaService.excluir(pessoaSelecionada);
+		todasPessoas();
 	}
 	
 	public void todasPessoas() {

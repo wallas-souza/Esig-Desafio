@@ -88,7 +88,8 @@
 					</p:commandButton>
 					<p:commandButton title="Excluir"
 						class="ui-button-danger rounded-button ui-button-danger"
-						icon="pi pi-trash" process="@this">
+						icon="pi pi-trash" process="@this"
+						oncomplete="PF('deleteDialog').show()">
 						<f:setPropertyActionListener value="#{pessoa}"
 							target="#{gestaoPessoasBean.pessoaSelecionada}" />
 					</p:commandButton>
@@ -175,12 +176,12 @@
 						value="#{gestaoPessoasBean.pessoaSelecionada.email}" />
 
 					<p:outputLabel value="Telefone: " for="telefoneEditar" />
-					<p:inputText id="telefoneEditar" size="20"
-						maxlength="14" value="#{gestaoPessoasBean.pessoaSelecionada.telefone}" />
+					<p:inputText id="telefoneEditar" size="20" maxlength="14"
+						value="#{gestaoPessoasBean.pessoaSelecionada.telefone}" />
 
 					<p:outputLabel value="Cep: " for="cepEditar" />
-					<p:inputMask id="cepEditar" mask="99999-999" size="20" maxlength="10"
-						value="#{gestaoPessoasBean.pessoaSelecionada.cep}" />
+					<p:inputMask id="cepEditar" mask="99999-999" size="20"
+						maxlength="10" value="#{gestaoPessoasBean.pessoaSelecionada.cep}" />
 
 					<p:outputLabel value="Cidade: " for="cidadeEditar" />
 					<p:inputText id="cidadeEditar" size="20" maxlength="30"
@@ -191,8 +192,8 @@
 						value="#{gestaoPessoasBean.pessoaSelecionada.pais}" />
 
 					<p:outputLabel value="Data Nascimento: " for="dataNascimentoEditar" />
-					<p:inputText id="dataNascimentoEditar" size="20"
-						maxlength="10" value="#{gestaoPessoasBean.pessoaSelecionada.dataNascimento}" />
+					<p:inputText id="dataNascimentoEditar" size="20" maxlength="10"
+						value="#{gestaoPessoasBean.pessoaSelecionada.dataNascimento}" />
 
 					<p:outputLabel value="Cargo: " for="cargoEditar" />
 					<p:autoComplete id="cargoEditar" size="20"
@@ -214,6 +215,18 @@
 						process="editarDialog" />
 				</h:panelGrid>
 			</p:dialog>
+
+			<p:confirmDialog widgetVar="deleteDialog" showEffect="fade"
+				width="300" message="Deseja excluir a pessoa?"
+				header="Confirmar" severity="warn">
+				<p:commandButton value="Sim" icon="pi pi-check"
+					actionListener="#{gestaoPessoasBean.delete}" process="@this"
+					oncomplete="PF('deleteDialog').hide()"
+					update=":table:pessoaDataTable" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-button-raised ui-button-danger" icon="pi pi-times"
+					onclick="PF('deleteDialog').hide()" />
+			</p:confirmDialog>
 
 			<div>
 				<p:commandButton class="ui-button-secondary" value="Adicionar"
