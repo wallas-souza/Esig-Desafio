@@ -22,7 +22,18 @@ public class PessoaSalarioService implements Serializable {
 	}
 	
 	@Transacional
-	public void salvar(PessoaSalario pessoaSalario) {
+	public void salvar(PessoaSalario pessoaSalario, Pessoa pessoa) {
+		pessoaSalario.setId(pessoa.getId());
+		pessoaSalario.setNome(pessoa.getNome());
+		pessoaSalario.setSalario(pessoa.getCargoId().getSalario());
 		pessoaSalarios.guardar(pessoaSalario);
 	}
+	
+	@Transacional
+	public void excluir(PessoaSalario pessoaSalario,Pessoa pessoa) {
+		pessoaSalario.setId(pessoa.getId());
+		pessoaSalarios.remover(pessoaSalario);
+	}
+	
+	
 }

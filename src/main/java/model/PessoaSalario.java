@@ -17,10 +17,9 @@ public class PessoaSalario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@Column(name = "nome", nullable = false, length = 40)
+	@Column(name = "nome")
 	private String nome;
 	
 	@Column(name = "salario")

@@ -21,13 +21,13 @@ public class PessoaService implements Serializable {
 	}
 	
 	@Transacional
-	public Long quantidade() {
+	public int quantidade() {
 		return pessoas.contar();
 	}
 	
 	@Transacional
 	public void salvar(Pessoa pessoa) {
-		Long id = quantidade();
+		int id = quantidade();
 		pessoa.setId(id);
 		pessoas.guardar(pessoa);
 	}

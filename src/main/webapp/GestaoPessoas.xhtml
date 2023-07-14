@@ -17,9 +17,9 @@
 </h:head>
 
 <h:body>
-
-	<h2>Listagem de Salários</h2>
-
+	<header style="display: flex; align-items: center;" class="header">
+		<h1 style="margin-right: 1rem; color: white;">Listagem de Pessoa</h1>
+	</header>
 
 	<div id="conteudo">
 		<h:form id="table">
@@ -217,8 +217,8 @@
 			</p:dialog>
 
 			<p:confirmDialog widgetVar="deleteDialog" showEffect="fade"
-				width="300" message="Deseja excluir a pessoa?"
-				header="Confirmar" severity="warn">
+				width="300" message="Deseja excluir a pessoa?" header="Confirmar"
+				severity="warn">
 				<p:commandButton value="Sim" icon="pi pi-check"
 					actionListener="#{gestaoPessoasBean.delete}" process="@this"
 					oncomplete="PF('deleteDialog').hide()"
@@ -228,7 +228,7 @@
 					onclick="PF('deleteDialog').hide()" />
 			</p:confirmDialog>
 
-			<div>
+			<div id="botoes">
 				<p:commandButton class="ui-button-secondary" value="Adicionar"
 					styleClass="ui-button-info" icon="pi pi-plus-circle"
 					actionListener="#{gestaoPessoasBean.prepararNovaPessoa}"
@@ -236,9 +236,13 @@
 					update="pessoaDialog" process="@this">
 					<p:resetInput target="pessoaDialog" />
 				</p:commandButton>
+				<p:spacer width="20px" />
+				<p:commandButton class="ui-button-secondary" value="Pessoa Salário" action="#{gestaoPessoasBean.url}"
+					styleClass="ui-button-success" icon="pi pi-arrow-circle-right"/>
 			</div>
+		
 		</h:form>
 	</div>
-	<footer> Desafio ESIG </footer>
+	<footer> Wallas Souza - Desafio ESIG </footer>
 </h:body>
 </html>

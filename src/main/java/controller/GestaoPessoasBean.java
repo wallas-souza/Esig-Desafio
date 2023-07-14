@@ -16,7 +16,6 @@ import repository.Cargos;
 import repository.Pessoas;
 import service.PessoaSalarioService;
 import service.PessoaService;
-import util.FacesMessages;
 
 @Named
 @ViewScoped
@@ -34,15 +33,10 @@ public class GestaoPessoasBean implements Serializable{
 	
 	private Pessoa pessoaSelecionada = new Pessoa();
 	
-	private Cargo cargo = new Cargo();
-	
 	private PessoaSalario pessoaSalario = new PessoaSalario();
 	
 	@Inject
 	private PessoaService pessoaService;
-	
-	@Inject
-	private FacesMessages  message;
 	
 	@Inject
 	private PessoaSalarioService pessoaSalarioService;
@@ -62,17 +56,24 @@ public class GestaoPessoasBean implements Serializable{
 	
 	public void salvar() {
 		pessoaService.salvar(pessoa);
+		pessoaSalarioService.salvar(pessoaSalario,pessoa);
 		todasPessoas();
 	}
 	
 	public void atualizar() {
 		pessoaService.atualizar(pessoaSelecionada);
+		pessoaSalarioService.salvar(pessoaSalario,pessoa);
 		todasPessoas();
 	}
 	
 	public void delete() {
+		pessoaSalarioService.excluir(pessoaSalario,pessoa);
 		pessoaService.excluir(pessoaSelecionada);
 		todasPessoas();
+	}
+	
+	public String url() {
+		return "GestaoPessoaSalario?faces-redirect=true";
 	}
 	
 	public void todasPessoas() {

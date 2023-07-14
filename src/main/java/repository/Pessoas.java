@@ -24,23 +24,12 @@ public class Pessoas implements Serializable {
 		this.manager = manager;
 	}
 	
-	public Pessoa porId(Long id) {
+	public Pessoa porId(int id) {
 		return manager.find(Pessoa.class, id);
 	}
 	
 	public List<Pessoa> findAll() {
 		return manager.createQuery("from Pessoa", Pessoa.class).getResultList();
-	}
-
-	public List<Pessoa> pesquisar(String nome) {
-		String jpql = "from Pessoa where nome like :nome";
-		
-		TypedQuery<Pessoa> query = manager
-				.createQuery(jpql, Pessoa.class);
-		
-		query.setParameter("nome", nome + "%");
-		
-		return query.getResultList();
 	}
 	
 	public List<Pessoa> todas() {
@@ -55,12 +44,12 @@ public class Pessoas implements Serializable {
 		pessoa = porId(pessoa.getId());
 		manager.remove(pessoa);
 	}
-	public Long contar() {
+	public int contar() {
 		String jpql = "SELECT e FROM Pessoa e ORDER BY e.id DESC";
 		TypedQuery<Pessoa> query = manager.createQuery(jpql, Pessoa.class);
 		query.setMaxResults(1);
 		Pessoa ultimoObjeto = query.getSingleResult();
-		Long id = ultimoObjeto.getId() + 1;
+		int id = ultimoObjeto.getId() + 1;
 		return id;
 	}
 }	

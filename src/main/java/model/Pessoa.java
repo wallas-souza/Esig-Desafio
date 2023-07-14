@@ -19,7 +19,7 @@ public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	private Long id;
+	private int id;
 	
 	@Column(name = "nome", nullable = true, length = 40)
 	private String nome;
@@ -125,11 +125,11 @@ public class Pessoa implements Serializable {
 		this.cargoId = cargoId;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
