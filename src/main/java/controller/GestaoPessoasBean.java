@@ -11,11 +11,10 @@ import javax.inject.Named;
 
 import model.Cargo;
 import model.Pessoa;
-import model.PessoaSalario;
 import repository.Cargos;
 import repository.Pessoas;
-import service.PessoaSalarioService;
 import service.PessoaService;
+import util.CargoConverter;
 
 @Named
 @ViewScoped
@@ -33,13 +32,8 @@ public class GestaoPessoasBean implements Serializable{
 	
 	private Pessoa pessoaSelecionada = new Pessoa();
 	
-	private PessoaSalario pessoaSalario = new PessoaSalario();
-	
 	@Inject
 	private PessoaService pessoaService;
-	
-	@Inject
-	private PessoaSalarioService pessoaSalarioService;
 	
 	private List<Pessoa> listaPessoas;
 	
@@ -56,18 +50,15 @@ public class GestaoPessoasBean implements Serializable{
 	
 	public void salvar() {
 		pessoaService.salvar(pessoa);
-		pessoaSalarioService.salvar(pessoaSalario,pessoa);
 		todasPessoas();
 	}
 	
 	public void atualizar() {
 		pessoaService.atualizar(pessoaSelecionada);
-		pessoaSalarioService.salvar(pessoaSalario,pessoa);
 		todasPessoas();
 	}
 	
 	public void delete() {
-		pessoaSalarioService.excluir(pessoaSalario,pessoa);
 		pessoaService.excluir(pessoaSelecionada);
 		todasPessoas();
 	}

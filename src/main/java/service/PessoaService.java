@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import model.Pessoa;
+import model.PessoaSalario;
 import repository.Pessoas;
 import util.Transacional;
 
@@ -15,6 +16,11 @@ public class PessoaService implements Serializable {
 	
 	@Inject
 	private Pessoas pessoas;
+	
+	@Inject
+	private PessoaSalarioService pessoaSalarioService;
+	
+	private PessoaSalario pessoaSalario = new PessoaSalario();
 	
 	public List<Pessoa> getAll() {
 		return pessoas.findAll();
@@ -30,15 +36,18 @@ public class PessoaService implements Serializable {
 		int id = quantidade();
 		pessoa.setId(id);
 		pessoas.guardar(pessoa);
+		pessoaSalarioService.salvar(pessoaSalario,pessoa);
 	}
 	
 	@Transacional
 	public void atualizar(Pessoa pessoaSelecionada) {
 		pessoas.guardar(pessoaSelecionada);
+		pessoaSalarioService.salvar(pessoaSalario,pessoaSelecionada);
 	}
 	
 	@Transacional
 	public void excluir(Pessoa pessoa) {
+		pessoaSalarioService.excluir(pessoaSalario,pessoa);
 		pessoas.remover(pessoa);
 	}
 
