@@ -9,10 +9,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import model.Cargo;
-import model.Pessoa;
-import repository.Cargos;
-import repository.Pessoas;
+import entity.Cargo;
+import entity.Pessoa;
+import service.CargosService;
 import service.PessoaService;
 import util.CargoConverter;
 
@@ -23,10 +22,7 @@ public class GestaoPessoasBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private Pessoas pessoas;
-	
-	@Inject
-	private Cargos cargos;
+	private CargosService cargosService;
 	
 	private Pessoa pessoa = new Pessoa();
 	
@@ -38,6 +34,16 @@ public class GestaoPessoasBean implements Serializable{
 	private List<Pessoa> listaPessoas;
 	
 	private Converter cargoConverter;
+	
+	private String termoPesquisa;
+	
+	private String termoCidade;
+	
+	private String termoCargo;
+	
+	private String termoEmail;
+	
+	private String termoUsuario;
 	
 	public void prepararNovaPessoa() {
 		pessoa = new Pessoa();
@@ -68,17 +74,22 @@ public class GestaoPessoasBean implements Serializable{
 	}
 	
 	public void todasPessoas() {
-		listaPessoas = pessoas.todas();
+		listaPessoas = pessoaService.getAllPessoas();
 	}
 	
 	public List<Cargo> completarCargo(String termo){
-		List<Cargo> listCargos = cargos.pesquisar(termo);
+		List<Cargo> listCargos = cargosService.pesquisar(termo);
 		
 		cargoConverter = new CargoConverter(listCargos);
 		
 		return listCargos;
 	}
 	
+	public void pesquisar() {
+	    String jpql = pessoaService.construirConsulta(termoPesquisa, termoCidade, termoCargo, termoEmail, termoUsuario);
+	    listaPessoas = pessoaService.consultar(jpql,termoPesquisa, termoCidade, termoCargo, termoEmail, termoUsuario);
+	}
+
 	public List<Pessoa> getListPessoas(){
 		return listaPessoas;
 	}
@@ -101,6 +112,46 @@ public class GestaoPessoasBean implements Serializable{
 
 	public void setpessoaSelecionada(Pessoa pessoaSelecionada) {
 		this.pessoaSelecionada = pessoaSelecionada;
+	}
+	
+	public String getTermoPesquisa() {
+		return termoPesquisa;
+	}
+	
+	public void setTermoPesquisa(String termoPesquisa) {
+		this.termoPesquisa = termoPesquisa;
+	}
+	
+	public String getTermoCidade() {
+		return termoCidade;
+	}
+	
+	public void setTermoCidade(String termoCidade) {
+		this.termoCidade = termoCidade;
+	}
+	
+	public String getTermoCargo() {
+		return termoCargo;
+	}
+	
+	public void setTermoCargo(String termoCargo) {
+		this.termoCargo = termoCargo;
+	}
+	
+	public String getTermoEmail() {
+		return termoEmail;
+	}
+	
+	public void setTermoEmail(String termoEmail) {
+		this.termoEmail = termoEmail;
+	}
+	
+	public String getTermoUsuario() {
+		return termoUsuario;
+	}
+	
+	public void setTermoUsuario(String termoUsuario) {
+		this.termoUsuario = termoUsuario;
 	}
 	
 
