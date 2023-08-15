@@ -7,8 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import model.Pessoa;
-import model.PessoaSalario;
+import entity.PessoaSalario;
 
 public class PessoaSalarios implements Serializable {
 

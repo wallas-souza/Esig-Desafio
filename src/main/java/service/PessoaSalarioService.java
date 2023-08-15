@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import model.Pessoa;
-import model.PessoaSalario;
+import entity.Pessoa;
+import entity.PessoaSalario;
 import repository.PessoaSalarios;
 import util.Transacional;
 

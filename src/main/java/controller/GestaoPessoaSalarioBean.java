@@ -7,9 +7,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import model.PessoaSalario;
+import entity.PessoaSalario;
 import repository.PessoaSalarios;
-import service.PessoaSalarioService;
 
 @Named
 @ViewScoped
@@ -21,9 +20,6 @@ public class GestaoPessoaSalarioBean implements Serializable{
 	private PessoaSalarios pessoaSalarios;
 	
 	private PessoaSalario pessoaSalario;
-	
-	@Inject
-	private PessoaSalarioService salarioService;
 	
 	private List<PessoaSalario> list;
 	

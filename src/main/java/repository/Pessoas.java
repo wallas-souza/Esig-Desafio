@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import model.Pessoa;
+import entity.Pessoa;
 
 public class Pessoas implements Serializable {
 
@@ -51,5 +51,32 @@ public class Pessoas implements Serializable {
 		Pessoa ultimoObjeto = query.getSingleResult();
 		int id = ultimoObjeto.getId() + 1;
 		return id;
+	}
+	
+	public List<Pessoa> executarConsulta(String jpql, String termoPesquisa, String termoCidade, String termoCargo, String termoEmail, String termoUsuario) {
+		
+		TypedQuery<Pessoa> query = manager.createQuery(jpql, Pessoa.class);
+	    
+	    if (termoPesquisa != null && !termoPesquisa.isEmpty()) {
+	        query.setParameter("nome", "%" + termoPesquisa + "%");
+	    }
+
+	    if (termoCidade != null && !termoCidade.isEmpty()) {
+	        query.setParameter("cidade", "%" + termoCidade + "%");
+	    }
+
+	    if (termoCargo != null && !termoCargo.isEmpty()) {
+	        query.setParameter("nomeCargo", "%" + termoCargo + "%");
+	    }
+	    
+	    if (termoEmail != null && !termoEmail.isEmpty()) {
+	        query.setParameter("email", "%" + termoEmail + "%");
+	    }
+	    
+	    if (termoUsuario != null && !termoUsuario.isEmpty()) {
+	        query.setParameter("usuario", "%" + termoUsuario + "%");
+	    }
+
+	    return query.getResultList();
 	}
 }	

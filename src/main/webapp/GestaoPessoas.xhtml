@@ -23,6 +23,56 @@
 
 	<div id="conteudo">
 		<h:form id="table">
+			<div class="field-pair">
+				<div class="field-group">
+					<p:outputLabel for="searchInput" value="Nome:"
+						styleClass="label-bold" />
+					<p:inputText id="searchInput" styleClass="custom-input"
+						placeholder="Digite um nome para pesquisar"
+						value="#{gestaoPessoasBean.termoPesquisa}" />
+				</div>
+
+				<div class="field-group">
+					<p:outputLabel for="searchCidade" value="Cidade:"
+						styleClass="label-bold" />
+					<p:inputText id="searchCidade" styleClass="custom-input"
+						placeholder="Digite uma Cidade para pesquisar"
+						value="#{gestaoPessoasBean.termoCidade}" />
+				</div>
+			</div>
+
+			<div class="field-pair">
+				<div class="field-group">
+					<p:outputLabel for="searchCargo" value="Cargo:"
+						styleClass="label-bold" />
+					<p:inputText id="searchCargo" styleClass="custom-input"
+						placeholder="Digite um Cargo para pesquisar"
+						value="#{gestaoPessoasBean.termoCargo}" />
+				</div>
+
+				<div class="field-group">
+					<p:outputLabel for="searchEmail" value="Email:"
+						styleClass="label-bold" />
+					<p:inputText id="searchEmail" styleClass="custom-input"
+						placeholder="Digite um Email para pesquisar"
+						value="#{gestaoPessoasBean.termoEmail}" />
+				</div>
+				
+				<div class="field-group">
+					<p:outputLabel for="searchUsuario" value="Usuário:"
+						styleClass="label-bold" />
+					<p:inputText id="searchUsuario" styleClass="custom-input"
+						placeholder="Digite um Usuario para pesquisar"
+						value="#{gestaoPessoasBean.termoUsuario}" />
+				</div>
+			</div>
+
+				<div class="field-group-button">
+					<p:commandButton value="Pesquisar" icon="pi pi-search"
+						actionListener="#{gestaoPessoasBean.pesquisar}"
+						update="pessoaDataTable" />
+				</div>
+			
 			<p:messages autoUpdate="true" />
 			<p:dataTable id="pessoaDataTable"
 				value="#{gestaoPessoasBean.listPessoas}" var="pessoa"
@@ -237,10 +287,11 @@
 					<p:resetInput target="pessoaDialog" />
 				</p:commandButton>
 				<p:spacer width="20px" />
-				<p:commandButton class="ui-button-secondary" value="Pessoa Salário" action="#{gestaoPessoasBean.url}"
-					styleClass="ui-button-success" icon="pi pi-arrow-circle-right"/>
+				<p:commandButton class="ui-button-secondary" value="Pessoa Salário"
+					action="#{gestaoPessoasBean.url}" styleClass="ui-button-success"
+					icon="pi pi-arrow-circle-right" />
 			</div>
-		
+
 		</h:form>
 	</div>
 	<footer> Wallas Souza - Desafio ESIG </footer>

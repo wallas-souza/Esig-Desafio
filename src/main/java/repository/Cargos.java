@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import model.Cargo;
+import entity.Cargo;
 
 public class Cargos implements Serializable {
 
