@@ -27,6 +27,7 @@ Gerenciador simples, para listar, editar, adicionar e excluir uma pessoa da tabe
 - Editar Pessoa
 - Excluir Pessoa
 - Listar Pessoa
+- Pesquisar por Nome, Cidade, Cargo, Email e Usuário
 - Listar Salário Pessoa
 
 
