@@ -23,55 +23,44 @@
 
 	<div id="conteudo">
 		<h:form id="table">
-			<div class="field-pair">
-				<div class="field-group">
-					<p:outputLabel for="searchInput" value="Nome:"
-						styleClass="label-bold" />
-					<p:inputText id="searchInput" styleClass="custom-input"
-						placeholder="Digite um nome para pesquisar"
-						value="#{gestaoPessoasBean.termoPesquisa}" />
-				</div>
+			<p:growl id="messages" />
 
-				<div class="field-group">
-					<p:outputLabel for="searchCidade" value="Cidade:"
-						styleClass="label-bold" />
-					<p:inputText id="searchCidade" styleClass="custom-input"
-						placeholder="Digite uma Cidade para pesquisar"
-						value="#{gestaoPessoasBean.termoCidade}" />
-				</div>
+			<div class="search-container">
+				<p:outputLabel for="searchInput" value="Nome:"
+					styleClass="label-bold" />
+
+				<p:inputText id="searchInput"  styleClass="custom-input"
+					placeholder="Digite um nome para pesquisar"
+					value="#{gestaoPessoasBean.termoPesquisa}" />
+
+				<p:outputLabel for="searchCidade" value="Cidade:"
+					styleClass="label-bold" />
+				<p:inputText id="searchCidade" styleClass="custom-input"
+					placeholder="Digite uma Cidade para pesquisar"
+					value="#{gestaoPessoasBean.termoCidade}" />
+
+				<p:outputLabel for="searchCargo" value="Cargo:"
+					styleClass="label-bold" />
+				<p:inputText id="searchCargo" styleClass="custom-input"
+					placeholder="Digite um Cargo para pesquisar"
+					value="#{gestaoPessoasBean.termoCargo}" />
+
+				<p:outputLabel for="searchEmail" value="Email:"
+					styleClass="label-bold" />
+				<p:inputText id="searchEmail" styleClass="custom-input"
+					placeholder="Digite um Email para pesquisar"
+					value="#{gestaoPessoasBean.termoEmail}" />
+
+				<p:outputLabel for="searchUsuario" value="Usuário:"
+					styleClass="label-bold" />
+				<p:inputText id="searchUsuario" styleClass="custom-input"
+					placeholder="Digite um Usuario para pesquisar"
+					value="#{gestaoPessoasBean.termoUsuario}" />
+
+				<p:commandButton value="Pesquisar" icon="pi pi-search"
+					actionListener="#{gestaoPessoasBean.pesquisar}"
+					update="pessoaDataTable" />
 			</div>
-
-			<div class="field-pair">
-				<div class="field-group">
-					<p:outputLabel for="searchCargo" value="Cargo:"
-						styleClass="label-bold" />
-					<p:inputText id="searchCargo" styleClass="custom-input"
-						placeholder="Digite um Cargo para pesquisar"
-						value="#{gestaoPessoasBean.termoCargo}" />
-				</div>
-
-				<div class="field-group">
-					<p:outputLabel for="searchEmail" value="Email:"
-						styleClass="label-bold" />
-					<p:inputText id="searchEmail" styleClass="custom-input"
-						placeholder="Digite um Email para pesquisar"
-						value="#{gestaoPessoasBean.termoEmail}" />
-				</div>
-				
-				<div class="field-group">
-					<p:outputLabel for="searchUsuario" value="Usuário:"
-						styleClass="label-bold" />
-					<p:inputText id="searchUsuario" styleClass="custom-input"
-						placeholder="Digite um Usuario para pesquisar"
-						value="#{gestaoPessoasBean.termoUsuario}" />
-				</div>
-			</div>
-
-				<div class="field-group-button">
-					<p:commandButton value="Pesquisar" icon="pi pi-search"
-						actionListener="#{gestaoPessoasBean.pesquisar}"
-						update="pessoaDataTable" />
-				</div>
 			
 			<p:messages autoUpdate="true" />
 			<p:dataTable id="pessoaDataTable"
@@ -152,116 +141,129 @@
 			<p:dialog id="pessoaDialog" modal="true" resizable="false"
 				closeOnEscape="true" draggable="false" header="Nova Pessoa"
 				widgetVar="pessoaDialogWidgetVar">
+				<p:messages id="pessoaMessages" style="display: flex" />
 				<p:defaultCommand target="saveCommandButton" scope="pessoaDialog" />
 				<h:panelGrid id="pessoaPanel" columns="4"
 					rendered="#{gestaoPessoasBean.pessoa ne null}">
 					<p:outputLabel value="Nome: " for="nome" />
 					<p:inputText id="nome" size="20" maxlength="40"
-						value="#{gestaoPessoasBean.pessoa.nome}" />
+						value="#{gestaoPessoasBean.pessoa.nome}" required="true" />
 
 					<p:outputLabel value="Usuário: " for="usuario" />
 					<p:inputText id="usuario" size="20" maxlength="50"
-						value="#{gestaoPessoasBean.pessoa.usuario}" />
+						value="#{gestaoPessoasBean.pessoa.usuario}" required="true" />
 
 					<p:outputLabel value="Email: " for="email" />
 					<p:inputText id="email" size="20" maxlength="60"
-						value="#{gestaoPessoasBean.pessoa.email}" />
+						value="#{gestaoPessoasBean.pessoa.email}" required="true" />
 
 					<p:outputLabel value="Telefone: " for="telefone" />
 					<p:inputMask id="telefone" mask="(99)99999-9999" size="20"
-						maxlength="14" value="#{gestaoPessoasBean.pessoa.telefone}" />
+						maxlength="14" value="#{gestaoPessoasBean.pessoa.telefone}"
+						required="true" />
 
 					<p:outputLabel value="Cep: " for="cep" />
 					<p:inputMask id="cep" mask="99999-999" size="20" maxlength="10"
-						value="#{gestaoPessoasBean.pessoa.cep}" />
+						value="#{gestaoPessoasBean.pessoa.cep}" required="true" />
 
 					<p:outputLabel value="Cidade: " for="cidade" />
 					<p:inputText id="cidade" size="20" maxlength="30"
-						value="#{gestaoPessoasBean.pessoa.cidade}" />
+						value="#{gestaoPessoasBean.pessoa.cidade}" required="true" />
 
 					<p:outputLabel value="País: " for="pais" />
 					<p:inputText id="pais" size="20" maxlength="15"
-						value="#{gestaoPessoasBean.pessoa.pais}" />
+						value="#{gestaoPessoasBean.pessoa.pais}" required="true" />
 
 					<p:outputLabel value="Data Nascimento: " for="dataNascimento" />
 					<p:inputMask id="dataNascimento" mask="99/99/9999" size="20"
-						maxlength="10" value="#{gestaoPessoasBean.pessoa.dataNascimento}" />
+						maxlength="10" value="#{gestaoPessoasBean.pessoa.dataNascimento}"
+						required="true" />
 
 					<p:outputLabel value="Cargo: " for="cargo" />
 					<p:autoComplete id="cargo" size="20"
 						value="#{gestaoPessoasBean.pessoa.cargoId}"
 						completeMethod="#{gestaoPessoasBean.completarCargo}"
 						converter="#{gestaoPessoasBean.cargoConverter}" var="cargo"
-						itemLabel="#{cargo.nome}" itemValue="#{cargo}" />
+						itemLabel="#{cargo.nome}" itemValue="#{cargo}" required="true" />
 					<h:outputLabel />
 				</h:panelGrid>
 				<h:panelGrid id="pessoaPanel2" columns="2"
 					rendered="#{gestaoPessoasBean.pessoa ne null}">
 					<p:outputLabel value="Endereço: " for="enderco" />
 					<p:inputText id="enderco" size="62" maxlength="100"
-						value="#{gestaoPessoasBean.pessoa.enderco}" />
+						value="#{gestaoPessoasBean.pessoa.enderco}" required="true" />
 					<p:commandButton id="saveCommandButton" value="Salvar"
 						actionListener="#{gestaoPessoasBean.salvar}"
-						update=":table:pessoaDataTable pessoaPanel pessoaPanel2"
-						oncomplete="PF('pessoaDialogWidgetVar').hide()"
+						update=":table:pessoaDataTable pessoaPanel pessoaPanel2 pessoaMessages"
+						oncomplete="if (!args.validationFailed) PF('pessoaDialogWidgetVar').hide()"
 						process="pessoaDialog" />
 				</h:panelGrid>
 			</p:dialog>
 			<p:dialog id="editarDialog" modal="true" resizable="false"
 				closeOnEscape="true" draggable="false" header="Editar Pessoa"
 				widgetVar="EditarDialogWidgetVar">
+				<p:messages id="pessoaMessageseditar" style="display: flex" />
 				<p:defaultCommand target="saveCommandButton" scope="editarDialog" />
 				<h:panelGrid id="editarPanel" columns="4"
 					rendered="#{gestaoPessoasBean.pessoaSelecionada ne null}">
 					<p:outputLabel value="Nome: " for="nomeEditar" />
 					<p:inputText id="nomeEditar" size="20" maxlength="40"
-						value="#{gestaoPessoasBean.pessoaSelecionada.nome}" />
+						value="#{gestaoPessoasBean.pessoaSelecionada.nome}"
+						required="true" />
 
 					<p:outputLabel value="Usuário: " for="usuarioEditar" />
 					<p:inputText id="usuarioEditar" size="20" maxlength="50"
-						value="#{gestaoPessoasBean.pessoaSelecionada.usuario}" />
+						value="#{gestaoPessoasBean.pessoaSelecionada.usuario}"
+						required="true" />
 
 					<p:outputLabel value="Email: " for="emailEditar" />
 					<p:inputText id="emailEditar" size="20" maxlength="60"
-						value="#{gestaoPessoasBean.pessoaSelecionada.email}" />
+						value="#{gestaoPessoasBean.pessoaSelecionada.email}"
+						required="true" />
 
 					<p:outputLabel value="Telefone: " for="telefoneEditar" />
 					<p:inputText id="telefoneEditar" size="20" maxlength="14"
-						value="#{gestaoPessoasBean.pessoaSelecionada.telefone}" />
+						value="#{gestaoPessoasBean.pessoaSelecionada.telefone}"
+						required="true" />
 
 					<p:outputLabel value="Cep: " for="cepEditar" />
 					<p:inputMask id="cepEditar" mask="99999-999" size="20"
-						maxlength="10" value="#{gestaoPessoasBean.pessoaSelecionada.cep}" />
+						maxlength="10" value="#{gestaoPessoasBean.pessoaSelecionada.cep}"
+						required="true" />
 
 					<p:outputLabel value="Cidade: " for="cidadeEditar" />
 					<p:inputText id="cidadeEditar" size="20" maxlength="30"
-						value="#{gestaoPessoasBean.pessoaSelecionada.cidade}" />
+						value="#{gestaoPessoasBean.pessoaSelecionada.cidade}"
+						required="true" />
 
 					<p:outputLabel value="País: " for="paisEditar" />
 					<p:inputText id="paisEditar" size="20" maxlength="15"
-						value="#{gestaoPessoasBean.pessoaSelecionada.pais}" />
+						value="#{gestaoPessoasBean.pessoaSelecionada.pais}"
+						required="true" />
 
 					<p:outputLabel value="Data Nascimento: " for="dataNascimentoEditar" />
 					<p:inputText id="dataNascimentoEditar" size="20" maxlength="10"
-						value="#{gestaoPessoasBean.pessoaSelecionada.dataNascimento}" />
+						value="#{gestaoPessoasBean.pessoaSelecionada.dataNascimento}"
+						required="true" />
 
 					<p:outputLabel value="Cargo: " for="cargoEditar" />
 					<p:autoComplete id="cargoEditar" size="20"
 						value="#{gestaoPessoasBean.pessoaSelecionada.cargoId}"
 						completeMethod="#{gestaoPessoasBean.completarCargo}"
 						converter="#{gestaoPessoasBean.cargoConverter}" var="cargo"
-						itemLabel="#{cargo.nome}" itemValue="#{cargo}" />
+						itemLabel="#{cargo.nome}" itemValue="#{cargo}" required="true" />
 					<h:outputLabel />
 				</h:panelGrid>
 				<h:panelGrid id="editarPanel2" columns="2"
 					rendered="#{gestaoPessoasBean.pessoaSelecionada ne null}">
 					<p:outputLabel value="Endereço: " for="endercoEditar" />
 					<p:inputText id="endercoEditar" size="62" maxlength="100"
-						value="#{gestaoPessoasBean.pessoaSelecionada.enderco}" />
+						value="#{gestaoPessoasBean.pessoaSelecionada.enderco}"
+						required="true" />
 					<p:commandButton id="saveEditarCommandButton" value="Salvar"
 						actionListener="#{gestaoPessoasBean.atualizar}"
-						update=":table:pessoaDataTable editarPanel editarPanel2"
-						oncomplete="PF('EditarDialogWidgetVar').hide()"
+						update=":table:pessoaDataTable editarPanel editarPanel2 pessoaMessageseditar"
+						oncomplete="if (!args.validationFailed) PF('EditarDialogWidgetVar').hide()"
 						process="editarDialog" />
 				</h:panelGrid>
 			</p:dialog>
@@ -289,7 +291,7 @@
 				<p:spacer width="20px" />
 				<p:commandButton class="ui-button-secondary" value="Pessoa Salário"
 					action="#{gestaoPessoasBean.url}" styleClass="ui-button-success"
-					icon="pi pi-arrow-circle-right" />
+					icon="pi pi-arrow-circle-right" process="@this" />
 			</div>
 
 		</h:form>
