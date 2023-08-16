@@ -66,6 +66,12 @@ body .ui-button.rounded-button.ui-button-icon-only {
     margin-bottom: 10px !important;
     border: 1px solid #ccc !important;
     border-radius: 4px !important;
+    margin-right: 15px !important;
+    margin-left: 10px !important;
+}
+
+.search-container{
+	 margin-bottom: 2px !important;
 }
 
 .label-bold {

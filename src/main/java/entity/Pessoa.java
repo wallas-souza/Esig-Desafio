@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -21,36 +22,45 @@ public class Pessoa implements Serializable {
 	@Id
 	private int id;
 	
-	@Column(name = "nome", nullable = true, length = 40)
+	@NotNull
+	@Column(name = "nome", length = 40)
 	private String nome;
 	
-	@Column(name = "cidade", nullable = true, length = 30)
+	@NotNull
+	@Column(name = "cidade", length = 30)
 	private String cidade;
 	
+	@NotNull
 	@Email
-	@Column(name = "email", nullable = true, length = 60)
+	@Column(name = "email", length = 60)
 	private String email;
 	
-	@Column(name = "cep", nullable = true, length = 10)
+	@NotNull
+	@Column(name = "cep", length = 10)
 	private String cep;
 	
-	@Column(name = "enderco", nullable = true, length = 100)
+	@NotNull
+	@Column(name = "enderco", length = 100)
 	private String enderco;
 	
-	@Column(name = "pais", nullable = true, length = 15)
+	@NotNull
+	@Column(name = "pais", length = 15)
 	private String pais;
 	
-	@Column(name = "usuario", nullable = true, length = 50)
+	@NotNull
+	@Column(name = "usuario", length = 50)
 	private String usuario;
 	
-	@Column(name = "telefone", nullable = true, length = 14)
+	@NotNull
+	@Column(name = "telefone", length = 14)
 	private String telefone;
 	
+	@NotNull
 	@Column(name = "data_Nascimento")
 	private String dataNascimento;
 	
 	@ManyToOne
-	@JoinColumn(name = "cargo_id", nullable = true)
+	@JoinColumn(name = "cargo_id")
 	private Cargo cargoId;
 
 	public String getCidade() {

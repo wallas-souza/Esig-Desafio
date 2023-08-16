@@ -12,6 +12,14 @@ public class CargoConverter implements Converter {
 
 	private List<Cargo> listCargos;
 	
+    public CargoConverter() {
+       
+    }
+    
+    public void setListCargos(List<Cargo> listCargos) {
+        this.listCargos = listCargos;
+    }
+	
 	public CargoConverter(List<Cargo> listCargos) {
 		this.listCargos = listCargos;
 	}
