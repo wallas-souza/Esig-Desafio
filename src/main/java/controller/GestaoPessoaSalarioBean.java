@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import entity.PessoaSalario;
-import repository.PessoaSalarios;
+import service.PessoaSalarioService;
 
 @Named
 @ViewScoped
@@ -17,18 +17,27 @@ public class GestaoPessoaSalarioBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private PessoaSalarios pessoaSalarios;
+	private PessoaSalarioService pessoaSalarioService;
 	
 	private PessoaSalario pessoaSalario;
 	
 	private List<PessoaSalario> list;
 	
+	private Integer termoPesquisa;
+
+	private String termoNome;
+	
 	public void todasPessoasSalarios() {
-		list = pessoaSalarios.todas();
+		list = pessoaSalarioService.getAll();
 	}
 	
 	public List<PessoaSalario> getListPessoasSalarios(){
 		return list;
+	}
+	
+	public void pesquisar() {
+		String jpql = pessoaSalarioService.construirConsulta(termoPesquisa, termoNome);
+		list = pessoaSalarioService.consultar(jpql, termoPesquisa, termoNome);
 	}
 	
 	public PessoaSalario getPessoaSalario() {
@@ -37,6 +46,22 @@ public class GestaoPessoaSalarioBean implements Serializable{
 	
 	public void setPessoaSalario(PessoaSalario pessoaSalario) {
 	    this.pessoaSalario = pessoaSalario;
+	}
+	
+	public Integer getTermoPesquisa() {
+		return termoPesquisa;
+	}
+
+	public void setTermoPesquisa(Integer termoPesquisa) {
+		this.termoPesquisa = termoPesquisa;
+	}
+
+	public String getTermoNome() {
+		return termoNome;
+	}
+
+	public void setTermoNome(String termoNome) {
+		this.termoNome = termoNome;
 	}
 
 }

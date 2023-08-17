@@ -24,22 +24,40 @@
 
 	<div id="info">
 		<h:form id="form">
-			<p:dataTable id="pessoaDataTable"
-				value="#{gestaoPessoaSalarioBean.listPessoasSalarios}" var="salario"
-				paginator="true" rows="10" paginatorPosition="bottom">
+			<div class="search-container">
+				<p:outputLabel for="searchInput" value="Id:"
+					styleClass="label-bold" />
 
-				<p:column headerText="Id">
-					<h:outputText value="#{salario.id}"></h:outputText>
-				</p:column>
+				<p:inputText id="searchInput" styleClass="custom-input"
+					placeholder="Digite um id para pesquisar"
+					value="#{gestaoPessoaSalarioBean.termoPesquisa}" />
 
-				<p:column headerText="Nome">
-					<h:outputText value="#{salario.nome}"></h:outputText>
-				</p:column>
+				<p:outputLabel for="searchNome" value="Nome:"
+					styleClass="label-bold" />
+				<p:inputText id="searchNome" styleClass="custom-input"
+					placeholder="Digite um nome para pesquisar"
+					value="#{gestaoPessoaSalarioBean.termoNome}" />
+					
+				<p:commandButton value="Pesquisar" icon="pi pi-search"
+					actionListener="#{gestaoPessoaSalarioBean.pesquisar}"
+					update="pessoaDataTable" />
+			</div>		
+				<p:dataTable id="pessoaDataTable"
+					value="#{gestaoPessoaSalarioBean.listPessoasSalarios}"
+					var="salario" paginator="true" rows="10" paginatorPosition="bottom">
 
-				<p:column headerText="Salário">
-					<h:outputText value="#{salario.salario}"></h:outputText>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Id">
+						<h:outputText value="#{salario.id}"></h:outputText>
+					</p:column>
+
+					<p:column headerText="Nome">
+						<h:outputText value="#{salario.nome}"></h:outputText>
+					</p:column>
+
+					<p:column headerText="Salário">
+						<h:outputText value="#{salario.salario}"></h:outputText>
+					</p:column>
+				</p:dataTable>
 		</h:form>
 		<h:form>
 			<p:spacer height="20px" />
