@@ -35,5 +35,25 @@ public class PessoaSalarioService implements Serializable {
 		pessoaSalarios.remover(pessoaSalario);
 	}
 	
+	public String construirConsulta(Integer termoPesquisa,String termoNome) {
+	    String jpql = "SELECT p FROM PessoaSalario p WHERE 1 = 1";
+
+	    if (termoPesquisa != null) {
+	        jpql += " AND p.id = :id";
+	    }
+
+	    if (termoNome != null && !termoNome.isEmpty()) {
+	        jpql += " AND lower(p.nome) like lower(:nome)";
+	    }
+
+	    jpql += " ORDER BY p.id ASC";
+
+	    return jpql;
+	}
+	
+	public List<PessoaSalario> consultar(String jpql,Integer termoPesquisa,String termoNome) {
+		return pessoaSalarios.executarConsulta(jpql, termoPesquisa,termoNome);
+	}
+	
 	
 }

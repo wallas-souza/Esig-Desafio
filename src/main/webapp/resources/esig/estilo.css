@@ -76,6 +76,7 @@ body .ui-button.rounded-button.ui-button-icon-only {
 
 .label-bold {
     font-weight: bold !important;
+    margin-left: 10px;
 }
 
 .field-pair {

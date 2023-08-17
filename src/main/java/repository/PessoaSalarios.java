@@ -47,4 +47,19 @@ public class PessoaSalarios implements Serializable {
 	        manager.remove(pessoaParaRemover);
 	    }
 	}
+	
+public List<PessoaSalario> executarConsulta(String jpql, Integer termoPesquisa, String termoNome) {
+		
+		TypedQuery<PessoaSalario> query = manager.createQuery(jpql, PessoaSalario.class);
+	    
+	    if (termoPesquisa != null) {
+	        query.setParameter("id", termoPesquisa);
+	    }
+
+	    if (termoNome != null && !termoNome.isEmpty()) {
+	        query.setParameter("nome", "%" + termoNome + "%");
+	    }
+
+	    return query.getResultList();
+	}
 }	
